@@ -25,9 +25,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out Insect insect))
+        if(other.TryGetComponent(out Health health))
         {
-            insect.ProcessHit(damage);
+            health.ProcessHit(damage);
             DOTween.KillAll();
             Destroy(gameObject);
         }

@@ -54,18 +54,6 @@ public abstract class Turret : MonoBehaviour
         {
             currentTarget = null;
         }
-        //if (currentTarget.gameObject == other.gameObject && insectsInRange.Count >= 1)
-        //{
-        //    insectsInRange.RemoveAt(0);
-        //    currentTarget = insectsInRange[0];
-        //}
-        //else if(currentTarget.gameObject == other.gameObject && insectsInRange.Count < 1)
-        //{
-        //    insectsInRange.RemoveAt(0);
-        //    currentTarget = null;
-        //}
-        //else
-        //    currentTarget = null;
     }
 
     private void OnDrawGizmosSelected()

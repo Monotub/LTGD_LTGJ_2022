@@ -4,11 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Health))]
 public class Insect : MonoBehaviour
 {
     [Header("Insect Setup")]
     [SerializeField] float moveSpeed = 2f;
-    [SerializeField] float health = 10f;
     [SerializeField] int essenceValue = 10;
 
     List<Transform> waypoints;
@@ -49,13 +49,5 @@ public class Insect : MonoBehaviour
         }
     }
 
-    public void ProcessHit(int dmg)
-    {
-        health -= dmg;
 
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }
