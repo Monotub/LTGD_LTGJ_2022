@@ -10,7 +10,6 @@ public class CameraMovement : MonoBehaviour
     float moveX;
     float moveY;
 
-    bool paused = false;
 
     private void Update()
     {
@@ -18,18 +17,5 @@ public class CameraMovement : MonoBehaviour
         moveY = Input.GetAxisRaw("Vertical") * speed;
 
         camTarget.position += new Vector3(moveX, 0, moveY);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (paused)
-            {
-                Time.timeScale = 1;
-            }
-            else if (!paused)
-            {
-                Time.timeScale = 0;
-            }
-            paused = !paused;
-        }
     }
 }

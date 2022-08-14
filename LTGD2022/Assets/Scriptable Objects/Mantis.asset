@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89beac8e0ad765042b9d0d40b9bc0d8d, type: 3}
+  m_Name: Mantis
+  m_EditorClassIdentifier: 
+  Portrait: {fileID: 21300000, guid: 4191231d495129844a1c4830a7468e34, type: 3}
+  Prefab: {fileID: 8755407735549762641, guid: f243aa1a5d9d0cd4489f77935e0984a6, type: 3}
+  DisplayName: Mantis
+  EssenceCost: 100
+  AbilityDesc: Increases passive mana regeneration.
+  Description: His meditative practice might be of some use!
