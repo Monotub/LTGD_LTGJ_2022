@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System;
+
 
 public class PartySelection : MonoBehaviour
 {
     [Header("General Setup")]
     [SerializeField] GameStatsSO GameData;
     [SerializeField] int startingEssence = 250;
+    [SerializeField] GameObject partyWindows;
 
     [Header("Insect Info")]
     [SerializeField] Image portrait;
@@ -25,6 +25,8 @@ public class PartySelection : MonoBehaviour
 
     InsectStatsSO[] activeParty = new InsectStatsSO[9];
     InsectStatsSO currentSelection;
+
+    public static event Action<InsectStatsSO[]> PartySelected;
 
 
     private void Start()
@@ -75,7 +77,10 @@ public class PartySelection : MonoBehaviour
 
     public void AcceptParty()
     {
-        Debug.LogWarning("Feature not implemented yet!");
+        if (activeParty[0] == null) return;
+
+        PartySelected?.Invoke(activeParty);
+        partyWindows.SetActive(false);
     }
 
     public void ResetParty()
