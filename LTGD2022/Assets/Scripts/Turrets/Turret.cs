@@ -11,6 +11,8 @@ public abstract class Turret : MonoBehaviour
 
     protected List<Transform> insectsInRange = new List<Transform>();
     protected Transform currentTarget;
+    protected bool canFire = true;
+
 
     protected void Start()
     {
@@ -19,7 +21,7 @@ public abstract class Turret : MonoBehaviour
 
     protected void Update()
     {
-        if(currentTarget != null)
+        if(currentTarget != null && canFire && currentTarget.GetComponent<Insect>().targetable)
         {
             turretTop.rotation = Quaternion.LookRotation(currentTarget.transform.position - turretTop.position);
         }
@@ -71,5 +73,28 @@ public abstract class Turret : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    public void ProcessEMP(float stunTime) => StartCoroutine(EmpDelay(stunTime));
+
+    public IEnumerator EmpDelay(float stunTime)
+    {
+        var wait = new WaitForSeconds(stunTime);
+        canFire = false;
+        yield return wait;
+        canFire = true;
+    }
+
+    public void ProcessVirus(float virusFactor, float virusDelay) => StartCoroutine(VirusDelay(virusFactor, virusDelay));
+
+    IEnumerator VirusDelay(float virusFactor, float virusDelay)
+    {
+        var originalFireRate = fireRate;
+        var wait = new WaitForSeconds(virusDelay);
+        Debug.Log("Fire rate doubled");
+        fireRate *= virusFactor;
+        yield return wait;
+        Debug.Log("Fire rate restored");
+        fireRate = originalFireRate;
     }
 }

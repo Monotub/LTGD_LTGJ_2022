@@ -26,7 +26,7 @@ public class RapidTurret : Turret
     private new void Update()
     {
         base.Update();
-        if(currentTarget != null)
+        if(currentTarget != null && canFire && currentTarget.GetComponent<Insect>().targetable)
             FireAtWill();
     }
 

@@ -12,12 +12,14 @@ public class Insect : MonoBehaviour
     //[SerializeField] int essenceValue = 10;
     [SerializeField] protected float auraRadius = 5f;
 
+    public bool targetable { get; private set; }
+
     List<Transform> waypoints;
     Animator anim;
     NavMeshAgent navAgent;
 
 
-    private void Start()
+    protected void Start()
     {
         waypoints = FindObjectOfType<Path>().GetPath();
         anim = GetComponentInChildren<Animator>();
@@ -26,6 +28,7 @@ public class Insect : MonoBehaviour
         anim.SetTrigger("Running");
 
         navAgent.speed = moveSpeed;
+        targetable = true;
     }
 
     IEnumerator NavAlongPath()
@@ -53,11 +56,27 @@ public class Insect : MonoBehaviour
     public void ModifyMoveSpeed(float amt)
     {
         moveSpeed += amt;
+        navAgent.speed = moveSpeed;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, auraRadius);
+    }
+
+    public void ActivateCamo(float duration)
+    {
+        StartCoroutine(ProcessCamo(duration));
+    }
+
+    IEnumerator ProcessCamo(float dur)
+    {
+        var skin = GetComponentInChildren<SkinnedMeshRenderer>();
+        skin.enabled = false;
+        targetable = false;
+        yield return new WaitForSeconds(dur);
+        skin.enabled = true;
+        targetable = true;
     }
 }

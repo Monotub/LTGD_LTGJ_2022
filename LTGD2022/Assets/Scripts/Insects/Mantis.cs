@@ -6,5 +6,22 @@ using UnityEngine;
 [SelectionBase]
 public class Mantis : Insect
 {
-    // TODO: Add Mana regen once spells are implemented
+    [SerializeField] int regenModifier = 3;
+
+    Magic magic;
+
+    private void Awake()
+    {
+        magic = FindObjectOfType<Magic>();
+    }
+
+    private void OnEnable()
+    {
+        magic.ModifyManaRegen(regenModifier);
+    }
+
+    private void OnDisable()
+    {
+        magic.ModifyManaRegen(-regenModifier);
+    }
 }

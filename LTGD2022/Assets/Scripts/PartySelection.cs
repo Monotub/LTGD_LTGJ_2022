@@ -1,8 +1,8 @@
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-
 
 public class PartySelection : MonoBehaviour
 {
@@ -27,10 +27,12 @@ public class PartySelection : MonoBehaviour
     InsectStatsSO currentSelection;
 
     public static event Action<InsectStatsSO[]> PartySelected;
+    public static event Action StartGame;
 
 
     private void Start()
     {
+        // TODO: Remove this once other levels are added so essense cost carries over
         GameData.EssenceAmount = startingEssence;
     }
 
@@ -77,9 +79,11 @@ public class PartySelection : MonoBehaviour
 
     public void AcceptParty()
     {
-        if (activeParty[0] == null) return;
+        // TODO: REACTIVATE THIS!!! Commented out for faster testing!
+        //if (activeParty[0] == null) return;
 
         PartySelected?.Invoke(activeParty);
+        StartGame?.Invoke();
         partyWindows.SetActive(false);
     }
 

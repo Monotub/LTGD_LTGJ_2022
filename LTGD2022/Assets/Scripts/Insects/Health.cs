@@ -48,11 +48,15 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ModifyDefense (float amt)
+    public void ActivateDefenseBuff(float amt, float duration) => StartCoroutine(ProcessDefenseBuff(amt, duration));
+
+    IEnumerator ProcessDefenseBuff(float amt, float dur)
     {
-        if (amt == -1f)
-            defense = defaultDefense;
-        else
-            defense += amt;
+        var origDef = defense;
+        Debug.Log("Defense boosted");
+        defense += amt;
+        yield return new WaitForSeconds(dur);
+        Debug.Log("Defense buff ended");
+        defense = origDef;
     }
 }
