@@ -27,12 +27,10 @@ public class RapidTurret : Turret
     {
         base.Update();
         if(currentTarget != null)
-        {
-            FireAtWill(currentTarget);
-        }
+            FireAtWill();
     }
 
-    void FireAtWill(Transform target)
+    void FireAtWill()
     {
         fireDelay -= Time.deltaTime;
         var spawnPos = Vector3.zero;
@@ -49,7 +47,7 @@ public class RapidTurret : Turret
                 spawnPos = rightBarrel.position;
                 leftFire = true;
             }
-            var tmp = Instantiate(projectilePrefab, spawnPos, Quaternion.identity, transform);
+            var tmp = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
             tmp.GetComponent<Projectile>().SetParameters(currentTarget, damage, projectileSpeed);
             fireDelay = fireRate;
         }

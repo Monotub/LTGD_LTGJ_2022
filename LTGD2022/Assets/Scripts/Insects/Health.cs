@@ -7,13 +7,17 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [Header("Health Setup")]
-    [SerializeField] float maxHealth = 10;
     [SerializeField] Image healthBar;
+    [SerializeField] float maxHealth = 10;
+    [SerializeField] float defense = 0;
 
+    public float Defense => defense;
     float currentHealth;
+    float defaultDefense;
 
-    private void Start()
+    private void Awake()
     {
+        defaultDefense = defense;
         currentHealth = maxHealth;
     }
 
@@ -22,10 +26,18 @@ public class Health : MonoBehaviour
         healthBar.fillAmount = currentHealth / maxHealth;
     }
 
+    public void ProcessHeal(float amt)
+    {
+        currentHealth += amt;
+        if(currentHealth > maxHealth)
+            currentHealth = maxHealth;
+    }
+
     public void ProcessHit(int dmg)
     {
-
-        currentHealth -= dmg;
+        float finalDmg = dmg - defense;
+        if(finalDmg < 1) finalDmg = 0;
+        currentHealth -= finalDmg;
 
         if (currentHealth <= 0)
             ProcessDeath();
@@ -34,5 +46,13 @@ public class Health : MonoBehaviour
     void ProcessDeath()
     {
         Destroy(gameObject);
+    }
+
+    public void ModifyDefense (float amt)
+    {
+        if (amt == -1f)
+            defense = defaultDefense;
+        else
+            defense += amt;
     }
 }

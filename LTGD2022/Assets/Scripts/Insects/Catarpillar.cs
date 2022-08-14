@@ -7,5 +7,8 @@ using UnityEngine;
 [SelectionBase]
 public class Catarpillar : Insect
 {
+    [Header("Caterpiller Setup")]
+    [SerializeField] float defenseBonus = 2f;
+
 
 }

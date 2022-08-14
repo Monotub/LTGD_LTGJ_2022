@@ -31,9 +31,20 @@ public abstract class Turret : MonoBehaviour
         if (other.GetComponent<Insect>())
         {
             insectsInRange.Add(other.gameObject.transform);
-            if(currentTarget == null)
+
+            foreach (var insect in insectsInRange)
             {
-                currentTarget = other.gameObject.transform;
+                if (insect.TryGetComponent(out Rhino rhino))
+                {
+                    currentTarget = rhino.transform;
+                    return;
+                }
+                else if (currentTarget == null)
+                {
+                    currentTarget = other.gameObject.transform;
+                    return;
+                }
+                else currentTarget = null;
             }
         }
     }

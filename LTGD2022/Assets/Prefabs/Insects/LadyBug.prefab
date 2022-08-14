@@ -85,8 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c2f183315220048aa92552c0990e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 2
   essenceValue: 25
+  auraRadius: 5
 --- !u!114 &7777034489602933324
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7053498594006958888}
   - component: {fileID: 7810454595680276637}
   - component: {fileID: 4913813643462384916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5528631170984726391}
   - component: {fileID: 5656782931486963481}
   - component: {fileID: -8371897239884703940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Laser Rapid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,4 +159,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e609583b88143a54c903dbc4cc0f1bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50

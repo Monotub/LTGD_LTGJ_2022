@@ -9,7 +9,8 @@ public class Insect : MonoBehaviour
 {
     [Header("Insect Setup")]
     [SerializeField] float moveSpeed = 2f;
-    [SerializeField] int essenceValue = 10;
+    //[SerializeField] int essenceValue = 10;
+    [SerializeField] protected float auraRadius = 5f;
 
     List<Transform> waypoints;
     Animator anim;
@@ -44,10 +45,19 @@ public class Insect : MonoBehaviour
     {
         if (other.gameObject.name == "End Point")
         {
-            Debug.Log($"{gameObject.name} reached the end!");
+            // TODO: Add essense back into the currency pool
             Destroy(gameObject);
         }
     }
 
+    public void ModifyMoveSpeed(float amt)
+    {
+        moveSpeed += amt;
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, auraRadius);
+    }
 }
