@@ -15,7 +15,7 @@ public class RapidTurret : Turret
 
     float fireDelay;
     bool leftFire = true;
-    
+    Vector3 spawnPos;
 
     private new void Start()
     {
@@ -33,7 +33,6 @@ public class RapidTurret : Turret
     void FireAtWill()
     {
         fireDelay -= Time.deltaTime;
-        var spawnPos = Vector3.zero;
 
         if(fireDelay <= 0)
         {

@@ -11,6 +11,7 @@ public class Hornet : Insect
     private void OnEnable()
     {
         var insects = FindObjectsOfType<Insect>();
+        Debug.Log($"Hornet found {insects.Length} bugs");
 
         foreach (var insect in insects)
         {

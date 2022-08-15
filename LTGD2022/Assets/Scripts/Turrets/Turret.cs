@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public abstract class Turret : MonoBehaviour
 {
-    [Header("Default Turret Setup")]
+    [Header("Base Turret Setup")]
     [SerializeField] Transform turretTop;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float fireRate;

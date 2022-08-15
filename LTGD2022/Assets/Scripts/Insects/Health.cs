@@ -53,10 +53,8 @@ public class Health : MonoBehaviour
     IEnumerator ProcessDefenseBuff(float amt, float dur)
     {
         var origDef = defense;
-        Debug.Log("Defense boosted");
         defense += amt;
         yield return new WaitForSeconds(dur);
-        Debug.Log("Defense buff ended");
         defense = origDef;
     }
 }

@@ -7,16 +7,24 @@ using DG.Tweening;
 public class Projectile : MonoBehaviour
 {
     Vector3 target;
-    float speed = 5;
+    Vector3 startPos;
+    float speed;
     int damage;
+    float moveTime = 0;
 
 
     private void Start()
     {
-        Vector3 targetPos = new Vector3(target.x, target.y + 1f, target.z);
-        if(transform != null)
-            transform.DOMove(targetPos, speed * Time.deltaTime).SetEase(Ease.Linear);
+        startPos = transform.position;
+        transform.rotation = Quaternion.LookRotation(target - startPos);
     }
+
+    private void Update()
+    {
+        moveTime += Time.deltaTime * speed;
+        transform.position = Vector3.Lerp(startPos, target, moveTime);
+    }
+
 
     public void SetParameters(Transform _target, int _damage, float _speed)
     {
@@ -27,13 +35,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Turret>() != null) return;
+        //if (other.gameObject.GetComponent<Turret>() != null) return;
 
-        if(other.TryGetComponent(out Health health))
+        if (other.TryGetComponent(out Health health))
         {
-            health.DOKill();
             health.ProcessHit(damage);
-            //DOTween.KillAll();
             Destroy(gameObject);
         }
     }
