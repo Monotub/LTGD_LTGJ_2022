@@ -88,7 +88,7 @@ public class Magic : MonoBehaviour
         spellSelected = true;
     }
 
-    void ClearSelectedSpell()
+    public void ClearSelectedSpell()
     {
         foreach (var spell in spellHighlights)
             spell.SetActive(false);
@@ -104,17 +104,13 @@ public class Magic : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                //if(hit.transform.name == "Terrain")
-                //{
-                    if (spellCost[spellIndex] <= currentMana &&
-                        spellHighlights[spellIndex].GetComponentInParent<SpellSlot>().CanCast())
-                    {
-                        Instantiate(spellPrefab[spellIndex], hit.point, Quaternion.identity);
-                        // TODO: Uncomment this!! Commented out for testing!
-                        //currentMana -= spellCost[spellIndex];
-                        //StartRecastTimer(spellIndex);
-                    }
-                //}
+                if (spellCost[spellIndex] <= currentMana &&
+                    spellHighlights[spellIndex].GetComponentInParent<SpellSlot>().CanCast())
+                {
+                    Instantiate(spellPrefab[spellIndex], hit.point, Quaternion.identity);
+                    currentMana -= spellCost[spellIndex];
+                    StartRecastTimer(spellIndex);
+                }
             }
         }
     }
