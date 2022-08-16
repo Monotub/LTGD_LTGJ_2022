@@ -16,5 +16,5 @@ MonoBehaviour:
   Prefab: {fileID: 678874474450560084, guid: 20309de0ea084574f9011023e6df8d6c, type: 3}
   DisplayName: Cater Daddy
   EssenceCost: 150
-  AbilityDesc: Shields allies around him, provided a defense bonus.
+  AbilityDesc: Shields allies around him, providing a defense bonus.
   Description: Big and bulky. He protects all the smaller fellows of the forest.

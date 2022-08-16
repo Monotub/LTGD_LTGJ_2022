@@ -1,7 +1,9 @@
-//using Unity.VisualScripting.Antlr3.Runtime;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static event Action<bool> PauseGame;
 
     Magic magic;
+    int partySize = 0;
 
 
     private void Awake()
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameData.EssenceAmount = startingEssence;
+        Time.timeScale = 1;
     }
 
     private void OnEnable()
@@ -53,6 +57,8 @@ public class GameManager : MonoBehaviour
             else
                 PauseMenu();
         }
+
+        MonitorPartySize();
     }
 
     public void PauseMenu()
@@ -79,5 +85,38 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quitting application!");
         Application.Quit();
+    }
+
+    public void SetPartySize(int amt)
+    {
+        partySize = amt;
+    }
+
+    public void ShrinkPartySize(int amt)
+    {
+        partySize -= amt;
+    }
+
+    void MonitorPartySize()
+    {
+        if (!gameStarted) return;
+
+        if(partySize <= 0)
+        {
+            // TODO: Change this to gameover screen
+            PauseMenu();
+            gameStarted = false;
+        }
+    }
+
+    public void RestartLevel()
+    {
+        //gameStarted = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ContinueToNextLevel()
+    {
+
     }
 }

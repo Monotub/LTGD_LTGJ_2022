@@ -6,6 +6,9 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject optionsPanel;
+    [SerializeField] GameObject levelCompletePanel;
+    [SerializeField] GameObject levelRestartBtn;
+    [SerializeField] GameObject levelContinueBtn;
 
     bool optionsOpen = false;
 

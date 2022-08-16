@@ -3978,6 +3978,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stump_01
       objectReference: {fileID: 0}
+    - target: {fileID: 7882472715881583700, guid: a1b7c0dd87118f14781b4024ff09f55c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1b7c0dd87118f14781b4024ff09f55c, type: 3}
 --- !u!1 &3617123621687345537 stripped
@@ -4198,6 +4202,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 884117941}
+    - target: {fileID: 1065894896686359934, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 884117941}
+    - target: {fileID: 4618925609106554338, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 884117941}
+    - target: {fileID: 4671647019964408652, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 884117941}
     - target: {fileID: 5125484967017422420, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4278,6 +4294,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 884117943}
+    - target: {fileID: 8405738917933572596, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 884117941}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89cbec5ab102fa2459b21a72d3821ca8, type: 3}
 --- !u!1 &5125484965488300337 stripped

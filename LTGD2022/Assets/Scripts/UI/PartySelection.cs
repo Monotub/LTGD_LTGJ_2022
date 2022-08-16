@@ -73,9 +73,18 @@ public class PartySelection : MonoBehaviour
 
     public void AcceptParty()
     {
+        int partySize = 0;
+
         if (activeParty[0] == null) return;
 
+        for (int i = 0; i < activeParty.Length; i++)
+        {
+            if (activeParty[i] != null)
+                partySize++;
+        }
+
         PartySelected?.Invoke(activeParty);
+        GameManager.Instance.SetPartySize(partySize);
         StartGame?.Invoke();
         partyWindows.SetActive(false);
     }

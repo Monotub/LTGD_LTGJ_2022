@@ -5,7 +5,7 @@ using UnityEngine;
 public class PartySpawner : MonoBehaviour
 {
     [SerializeField] Transform spawnPoint;
-    [SerializeField] float spawnDelay = 1.5f;
+    [SerializeField] float spawnDelay = 1f;
 
     private void OnEnable()
     {

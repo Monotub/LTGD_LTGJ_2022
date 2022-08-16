@@ -45,6 +45,7 @@ public class Health : MonoBehaviour
 
     void ProcessDeath()
     {
+        GameManager.Instance.ShrinkPartySize(1);
         Destroy(gameObject);
     }
 

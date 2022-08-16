@@ -33,6 +33,7 @@ public class Insect : MonoBehaviour
 
     IEnumerator NavAlongPath()
     {
+        Debug.Log("Insect Nav started");
         var wait = new WaitForEndOfFrame();
         for (int i = 0; i < waypoints.Count; i++)
         {
