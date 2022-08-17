@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class HasteSpell : MonoBehaviour
 {
-    [SerializeField] float hasteAmount = 1f;
-    [SerializeField] float hasteRadius = 3f;
+    [SerializeField] SpellSO data;
 
     private void Start()
     {
         var insects = FindObjectsOfType<Insect>();
         foreach (var insect in insects)
         {
-            if (Vector3.Distance(transform.position, insect.transform.position) <= hasteRadius)
-                insect.ModifyMoveSpeed(hasteAmount);
+            if (Vector3.Distance(transform.position, insect.transform.position) <= data.radius)
+                insect.ActivateHaste(data.value, data.duration);
         }
     }
 }

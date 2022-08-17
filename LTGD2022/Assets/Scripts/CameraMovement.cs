@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] Transform camTarget;
-    [SerializeField] float speed = 5;
+    [SerializeField] float speed = 1f;
 
     float moveX;
     float moveY;

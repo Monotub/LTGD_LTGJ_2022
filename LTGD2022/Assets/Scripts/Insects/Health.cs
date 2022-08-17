@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using System;
 
 
 public class Health : MonoBehaviour
@@ -14,6 +14,9 @@ public class Health : MonoBehaviour
     public float Defense => defense;
     float currentHealth;
     float defaultDefense;
+
+    public static event Action<InsectStatsSO> InsectDied;
+
 
     private void Awake()
     {
@@ -45,7 +48,7 @@ public class Health : MonoBehaviour
 
     void ProcessDeath()
     {
-        GameManager.Instance.ShrinkPartySize(1);
+        InsectDied?.Invoke(gameObject.GetComponent<Insect>().Stats);
         Destroy(gameObject);
     }
 

@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   auraRadius: 5
+  stats: {fileID: 11400000, guid: 9e02592252fc06e4c9621c6c419faf77, type: 2}
 --- !u!114 &359879694394891591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 8493149509302487062}
-  maxHealth: 10
-  defense: 0
+  maxHealth: 45
+  defense: 1
 --- !u!1001 &2174480907599308654
 PrefabInstance:
   m_ObjectHideFlags: 0

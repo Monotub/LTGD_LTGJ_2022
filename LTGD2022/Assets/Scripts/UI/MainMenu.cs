@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,12 +6,23 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject optionsPanel;
+    [SerializeField] Animator transitionAnim;
+    [SerializeField] GameStatsSO gameData;
 
     bool optionsOpen = false;
+    int startingEssence = 200;
 
 
     public void MainStartButton()
     {
+        gameData.EssenceAmount = startingEssence;
+        transitionAnim.SetTrigger("End");
+        StartCoroutine(LoadFirstLevel());
+    }
+
+    IEnumerator LoadFirstLevel()
+    {
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(1);
     }
 

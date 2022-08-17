@@ -16,5 +16,5 @@ MonoBehaviour:
   Prefab: {fileID: 2174480906724219467, guid: 5ff0da04cf732f240860fecc7a7c3ef2, type: 3}
   DisplayName: Rhino Beetle
   EssenceCost: 150
-  AbilityDesc: Draws the attention of nearby towers away from nearby allies.
+  AbilityDesc: Draws the attention of towers near him.
   Description: Thinks he's a unicorn. Always trying to be the center of attention.

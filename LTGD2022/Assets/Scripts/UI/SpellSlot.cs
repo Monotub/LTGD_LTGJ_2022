@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SpellSlot : MonoBehaviour
 {
     [SerializeField] Image recastGraphic;
 
+    UIManager uiManager;
+
     bool timerActive = false;
     float recastTimer = 2.5f;
     float timer;
 
 
+    private void Awake()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
 
     private void Update()
     {
@@ -36,4 +43,5 @@ public class SpellSlot : MonoBehaviour
     }
 
     public bool CanCast() => !timerActive;
+
 }

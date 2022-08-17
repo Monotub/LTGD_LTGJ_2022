@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class CamoSpell : MonoBehaviour
 {
-    [SerializeField] float camoDuration = 2f;
-    [SerializeField] float camoRadius = 3f;
+    [SerializeField] SpellSO data;
+
 
     private void Start()
     {
         var insects = FindObjectsOfType<Insect>();
         foreach (var insect in insects)
         {
-            if (Vector3.Distance(transform.position, insect.transform.position) <= camoRadius)
-                insect.ActivateCamo(camoDuration);
+            if (Vector3.Distance(transform.position, insect.transform.position) <= data.radius)
+                insect.ActivateCamo(data.duration);
         }
 
     }

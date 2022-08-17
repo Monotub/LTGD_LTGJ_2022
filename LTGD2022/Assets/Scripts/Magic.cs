@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -7,33 +8,27 @@ public class Magic : MonoBehaviour
 {
     [SerializeField] GameObject[] spellHighlights;
     [SerializeField] GameObject[] spellPrefab;
+    [SerializeField] SpellSO[] spellSOs = new SpellSO[6];
     [SerializeField] int manaRegenFactor = 5;
 
-    public bool spellSelected { get; private set; }
+    public int spellIndex { get; private set; }
+    public bool isSpellSelected { get; private set; }
     public int currentMana { get; private set; }
     public int maxMana { get; private set; }
 
     Camera cam;
-    
+    ContextInformation context;
+
     float regenTimer = 0f;
-    int[] spellCost = new int[6]
-    {
-        100,
-        75,
-        50,
-        50,
-        50,
-        50
-    };
-    int spellIndex;
 
 
     private void Start()
     {
+        cam = Camera.main;
         maxMana = 200;
         currentMana = maxMana;
-        cam = Camera.main;
-        spellSelected = false;
+        context = FindObjectOfType<ContextInformation>(true);
+        isSpellSelected = false;
     }
 
     private void Update()
@@ -85,30 +80,33 @@ public class Magic : MonoBehaviour
             else
                 spellHighlights[i].gameObject.SetActive(false);
         }
-        spellSelected = true;
+        isSpellSelected = true;
+        context.UpdateContextInfo();
     }
 
     public void ClearSelectedSpell()
     {
         foreach (var spell in spellHighlights)
             spell.SetActive(false);
-        spellSelected = false;
+        isSpellSelected = false;
     }
 
     void CastSelectedSpell()
     {
-        if (!spellSelected) return;
+        if (!isSpellSelected) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (spellCost[spellIndex] <= currentMana &&
+                if (spellSOs[spellIndex].cost <= currentMana &&
                     spellHighlights[spellIndex].GetComponentInParent<SpellSlot>().CanCast())
                 {
                     Instantiate(spellPrefab[spellIndex], hit.point, Quaternion.identity);
-                    currentMana -= spellCost[spellIndex];
+                    currentMana -= spellSOs[spellIndex].cost;
                     StartRecastTimer(spellIndex);
                 }
             }
@@ -139,4 +137,6 @@ public class Magic : MonoBehaviour
     }
 
     public int GetRegenFactor() => manaRegenFactor;
+
+    public SpellSO GetCurrentSpellInfo() => spellSOs[spellIndex];
 }

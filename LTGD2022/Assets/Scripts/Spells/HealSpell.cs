@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class HealSpell : MonoBehaviour
 {
-    [SerializeField] float healAmount = 4f;
-    [SerializeField] float healRadius = 3f;
+    [SerializeField] SpellSO data;
 
     private void Start()
     {
         var insects = FindObjectsOfType<Health>();
         foreach (var insect in insects)
         {
-            if (Vector3.Distance(transform.position, insect.transform.position) <= healRadius)
-                insect.ProcessHeal(healAmount);
+            if (Vector3.Distance(transform.position, insect.transform.position) <= data.radius)
+                insect.ProcessHeal(data.value);
         }
         
     }

@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   auraRadius: 5
+  stats: {fileID: 11400000, guid: 4d062002fd27f5d4c93e79913858b062, type: 2}
   regenModifier: 3
 --- !u!114 &3186411771462468312
 MonoBehaviour:
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 8913387712707327077}
-  maxHealth: 10
+  maxHealth: 45
   defense: 0
 --- !u!1001 &6032874527433898837
 PrefabInstance:

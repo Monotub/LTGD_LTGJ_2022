@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PoisonSpell : MonoBehaviour
 {
-    [SerializeField] float virusRadius = 3f;
-    [SerializeField] float virusFactor = 2f;
-    [SerializeField] float virusDelay = 2.5f;
+    [SerializeField] SpellSO data;
     
 
     void Start()
@@ -15,9 +13,9 @@ public class PoisonSpell : MonoBehaviour
 
         foreach (var turret in turrets)
         {
-            if (Vector3.Distance(transform.position, turret.transform.position) < virusRadius)
+            if (Vector3.Distance(transform.position, turret.transform.position) < data.radius)
             {
-                turret.ProcessVirus(virusFactor, virusDelay);
+                turret.ProcessVirus(data.value, data.duration);
             }
         }
     }

@@ -6,32 +6,31 @@ using UnityEngine;
 [SelectionBase]
 public class Hornet : Insect
 {
+    [Header("Hornet Setup")]
     [SerializeField] float speedModifier = 0.5f;
+    [SerializeField] float hasteDuration = 1f;
 
-    private void OnEnable()
+    float timer = 0;
+
+    private void Update()
     {
-        var insects = FindObjectsOfType<Insect>();
-        Debug.Log($"Hornet found {insects.Length} bugs");
-
-        foreach (var insect in insects)
-        {
-            if(Vector3.Distance(transform.position, insect.transform.position) <= auraRadius)
-            {
-                insect.ModifyMoveSpeed(speedModifier);
-            }
-        }
+        HasteAbility();
     }
 
-    private void OnDisable()
+    void HasteAbility()
     {
-        var insects = FindObjectsOfType<Insect>();
-
-        foreach (var insect in insects)
+        timer += Time.deltaTime;
+        if (timer >= hasteDuration)
         {
-            if (Vector3.Distance(transform.position, insect.transform.position) <= auraRadius)
+            var insects = FindObjectsOfType<Insect>();
+            foreach (var insect in insects)
             {
-                insect.ModifyMoveSpeed(-speedModifier);
+                if (Vector3.Distance(transform.position, insect.transform.position) <= auraRadius)
+                {
+                    insect.ActivateHaste(speedModifier, hasteDuration);
+                }
             }
+            timer = 0f;
         }
     }
 }

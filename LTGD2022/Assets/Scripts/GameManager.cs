@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
@@ -9,17 +10,24 @@ public class GameManager : MonoBehaviour
 {
     [Header("General Setup")]
     [SerializeField] GameStatsSO gameData;
-    [SerializeField] int startingEssence = 1000;
 
     public GameStatsSO GameData => gameData;
     public bool gameStarted { get; private set;}
     public bool paused { get; private set;}
+    public int partySize {get; private set;}
+    public int partyDied { get; private set; }
+    public int partyLived { get; private set; }
+    public int startingEssence { get; private set; }
+    public int bonusEssence { get; private set; }
+    public int lostEssence { get; private set; }
+    public int currentSceneIndex { get; private set; }
     
     public static GameManager Instance;
     public static event Action<bool> PauseGame;
+    public static event Action<bool> LevelCompleted;
+    public static event Action StartTransition;
 
     Magic magic;
-    int partySize = 0;
 
 
     private void Awake()
@@ -30,29 +38,34 @@ public class GameManager : MonoBehaviour
         gameStarted = false;
         paused = false;
         magic = FindObjectOfType<Magic>();
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void Start()
     {
-        gameData.EssenceAmount = startingEssence;
         Time.timeScale = 1;
+        startingEssence = gameData.EssenceAmount;
     }
 
     private void OnEnable()
     {
-        PartySelection.StartGame += StartGame;
+        PartySelection.StartGame += OnStartGame;
+        Health.InsectDied += OnInsectDeath;
+        Insect.InsectCompleted += OnInsectCompleted;
     }
 
     private void OnDisable()
     {
-        PartySelection.StartGame -= StartGame;
+        PartySelection.StartGame -= OnStartGame;
+        Health.InsectDied -= OnInsectDeath;
+        Insect.InsectCompleted -= OnInsectCompleted;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (magic.spellSelected)
+            if (magic.isSpellSelected)
                 magic.ClearSelectedSpell();
             else
                 PauseMenu();
@@ -76,13 +89,14 @@ public class GameManager : MonoBehaviour
         paused = !paused;
     }
 
-    void StartGame()
+    void OnStartGame()
     {
         gameStarted = true;
     }
 
     public void QuitGame()
     {
+        Time.timeScale = 1;
         Debug.Log("Quitting application!");
         Application.Quit();
     }
@@ -92,31 +106,74 @@ public class GameManager : MonoBehaviour
         partySize = amt;
     }
 
-    public void ShrinkPartySize(int amt)
+     void OnInsectDeath(InsectStatsSO data)
     {
-        partySize -= amt;
+        partyDied++;
+        lostEssence += data.EssenceCost;
+    }
+
+    void OnInsectCompleted(int essenceValue)
+    {
+        partyLived++;
+        gameData.EssenceAmount += essenceValue;
     }
 
     void MonitorPartySize()
     {
         if (!gameStarted) return;
 
-        if(partySize <= 0)
+        if(partyDied == partySize)
         {
-            // TODO: Change this to gameover screen
-            PauseMenu();
+            LevelComplete(false);
+            gameStarted = false;
+        }
+        else if (partyLived + partyDied == partySize)
+        {
+            gameData.EssenceAmount += bonusEssence;
+            LevelComplete(true);
             gameStarted = false;
         }
     }
 
+    void LevelComplete(bool passed)
+    {
+        LevelCompleted?.Invoke(passed);
+    }
+
     public void RestartLevel()
     {
-        //gameStarted = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+        gameData.EssenceAmount = startingEssence;
+        StartTransition?.Invoke();
+        StartCoroutine(RestartAfterDelay());
+    }
+
+    IEnumerator RestartAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void ContinueToNextLevel()
     {
+        Debug.Log(SceneManager.sceneCountInBuildSettings);
+        if (currentSceneIndex + 1 <= SceneManager.sceneCountInBuildSettings)
+        {
+            StartTransition?.Invoke();
+            StartCoroutine(ContinueToNextLevelAfterDelay());
+        }
+        else
+            Debug.LogWarning("Cannot load scene. No scene exists!");
+    }
 
+    IEnumerator ContinueToNextLevelAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    public void AddBonusEssence(int amt)
+    {
+        bonusEssence += amt;
     }
 }

@@ -8,7 +8,6 @@ public class PartySelection : MonoBehaviour
 {
     [Header("General Setup")]
     [SerializeField] GameStatsSO GameData;
-    [SerializeField] int startingEssence = 250;
     [SerializeField] GameObject partyWindows;
 
     [Header("Insect Info")]
@@ -47,6 +46,7 @@ public class PartySelection : MonoBehaviour
 
     public void AddInsect()
     {
+        if (currentSelection == null) return;
         if (currentSelection.EssenceCost > GameData.EssenceAmount) return;
 
         for (int i = 0; i < activeParty.Length; i++)

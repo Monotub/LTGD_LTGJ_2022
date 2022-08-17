@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
 using UnityEngine.AI;
+using UnityEngine;
+using System;
+
 
 [RequireComponent(typeof(Health))]
 public class Insect : MonoBehaviour
 {
     [Header("Insect Setup")]
     [SerializeField] float moveSpeed = 2f;
-    //[SerializeField] int essenceValue = 10;
     [SerializeField] protected float auraRadius = 5f;
+    [SerializeField] protected InsectStatsSO stats;
 
+    public InsectStatsSO Stats => stats;
     public bool targetable { get; private set; }
 
+    public static event Action<int> InsectCompleted;
+
+    int essenceValue;
     List<Transform> waypoints;
     Animator anim;
     NavMeshAgent navAgent;
@@ -29,11 +34,11 @@ public class Insect : MonoBehaviour
 
         navAgent.speed = moveSpeed;
         targetable = true;
+        essenceValue = stats.EssenceCost;
     }
 
     IEnumerator NavAlongPath()
     {
-        Debug.Log("Insect Nav started");
         var wait = new WaitForEndOfFrame();
         for (int i = 0; i < waypoints.Count; i++)
         {
@@ -49,15 +54,29 @@ public class Insect : MonoBehaviour
     {
         if (other.gameObject.name == "End Point")
         {
-            // TODO: Add essense back into the currency pool
+            InsectCompleted?.Invoke(essenceValue);
+            if (gameObject.TryGetComponent(out Ladybug ladybug))
+                GameManager.Instance.AddBonusEssence(ladybug.bonusEssence);
             Destroy(gameObject);
         }
+    }
+
+    public void ActivateHaste(float amt, float dur)
+    {
+        ModifyMoveSpeed(amt);
+        StartCoroutine(RevertMoveSpeed(amt, dur));
     }
 
     public void ModifyMoveSpeed(float amt)
     {
         moveSpeed += amt;
         navAgent.speed = moveSpeed;
+    }
+
+    IEnumerator RevertMoveSpeed(float amt, float dur)
+    {
+        yield return new WaitForSeconds(dur);
+        ModifyMoveSpeed(-amt);
     }
 
     private void OnDrawGizmosSelected()

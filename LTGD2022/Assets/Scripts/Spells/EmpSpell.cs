@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EmpSpell : MonoBehaviour
 {
-    [SerializeField] float stunTime = 2.5f;
-    [SerializeField] float stunRadius = 3f;
+    [SerializeField] SpellSO data;
 
 
     void Start()
@@ -14,9 +13,9 @@ public class EmpSpell : MonoBehaviour
 
         foreach (var turret in turrets)
         {
-            if(Vector3.Distance(transform.position, turret.transform.position) < stunRadius)
+            if(Vector3.Distance(transform.position, turret.transform.position) < data.radius)
             {
-                turret.ProcessEMP(stunTime);
+                turret.ProcessEMP(data.duration);
             }
         }
     }
