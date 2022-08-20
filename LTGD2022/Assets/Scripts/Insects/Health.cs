@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     [SerializeField] float maxHealth = 10;
     [SerializeField] float defense = 0;
 
+    public bool isDead { get; private set; }
     public float Defense => defense;
     float currentHealth;
     float defaultDefense;
@@ -43,7 +44,10 @@ public class Health : MonoBehaviour
         currentHealth -= finalDmg;
 
         if (currentHealth <= 0)
+        {
+            isDead = true;
             ProcessDeath();
+        }
     }
 
     void ProcessDeath()

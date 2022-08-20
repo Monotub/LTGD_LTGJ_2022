@@ -11,8 +11,9 @@ public class DogLauncher : Turret
     [SerializeField] int projectileDamage = 10;
     [SerializeField] float projectileSpeed = 5;
 
-    float fireDelay;
 
+    float fireDelay;
+    float rotorRotationMax = -25f;
 
     private new void Start()
     {
@@ -33,9 +34,24 @@ public class DogLauncher : Turret
 
         if (fireDelay <= 0)
         {
-            var tmp = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-            tmp.GetComponent<DogProjectile>().SetParameters(currentTarget, projectileDamage, projectileSpeed);
+            StartCoroutine(RotateRotor());
+            //var tmp = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+            //tmp.GetComponent<DogProjectile>().SetParameters(currentTarget, projectileDamage, projectileSpeed);
             fireDelay = fireRate;
         }
+    }
+
+    IEnumerator RotateRotor()
+    {
+        var rot = rotor.transform.localRotation;
+        rot.x = rotorRotationMax;
+        Vector3 fireRot = new Vector3(rot.x, 0, 0);
+        rotor.transform.localRotation = Quaternion.Lerp(rotor.transform.rotation, Quaternion.Euler(fireRot), Time.deltaTime * 100);
+        var tmp = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        tmp.GetComponent<DogProjectile>().SetParameters(currentTarget, projectileDamage, projectileSpeed);
+        yield return new WaitForSeconds(0.25f);
+        rot.x = 0;
+        rotor.transform.localRotation = rot;
+
     }
 }

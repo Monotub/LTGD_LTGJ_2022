@@ -45,7 +45,7 @@ public class Insect : MonoBehaviour
         {
             while(Vector3.Distance(transform.position, waypoints[i].position) > 0.1f)
             {
-                if(navAgent)
+                if(!GetComponent<Health>().isDead)
                     navAgent.SetDestination(waypoints[i].position);
                 yield return wait;
             }

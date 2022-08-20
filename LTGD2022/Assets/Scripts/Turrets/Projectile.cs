@@ -6,11 +6,11 @@ using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
-    Vector3 target;
-    Vector3 startPos;
+    protected Vector3 target;
+    protected int damage;
+    protected float moveTime = 0;
     float speed;
-    int damage;
-    float moveTime = 0;
+    Vector3 startPos;
 
 
     protected void Start()
