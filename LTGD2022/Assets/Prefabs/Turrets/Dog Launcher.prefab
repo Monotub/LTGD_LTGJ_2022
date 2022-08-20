@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretTop: {fileID: 1397589630929523668}
   attackRange: 12
-  fireRate: 2
+  fireRate: 2.5
   targetAquireRate: 1
   rotor: {fileID: 1397589630929686512}
   projectilePrefab: {fileID: 3148329137781077016, guid: d4a8709a7a415eb4baac59e7a3f87add, type: 3}

@@ -56,8 +56,9 @@ public class DogProjectile : Projectile
         foreach(var unit in insects)
         {
             var distToImpact = Vector3.Distance(unit.gameObject.transform.position, impactPoint);
-            if (distToImpact <= explosionRadius)
+            if (distToImpact <= explosionRadius && !unit.isDead)
             {
+
                 GetComponentInChildren<MeshRenderer>().enabled = false;
                 Instantiate(explosionPrefab, explosionLoc, Quaternion.identity);
                 
@@ -68,7 +69,7 @@ public class DogProjectile : Projectile
                 else
                     unit.ProcessHit(damage - 6);
 
-                Destroy(gameObject, 0.3f);
+                Destroy(gameObject, 0.1f);
             }
         }
     }
