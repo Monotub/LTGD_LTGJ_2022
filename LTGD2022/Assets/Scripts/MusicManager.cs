@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static MusicManager Instance;
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     void Start()
     {
         DontDestroyOnLoad(this);

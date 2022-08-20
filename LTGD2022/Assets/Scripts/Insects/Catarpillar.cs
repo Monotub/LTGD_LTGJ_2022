@@ -12,6 +12,9 @@ public class Catarpillar : Insect
     [SerializeField] float duration = 1f;
     float timer = 0;
 
+    Health[] insects;
+
+
     private void Update()
     {
         DefenseAbility();
@@ -20,15 +23,13 @@ public class Catarpillar : Insect
     void DefenseAbility()
     {
         timer += Time.deltaTime;
-        if (timer >= duration)
+        if (timer >= duration + 0.01f)
         {
-            var insects = FindObjectsOfType<Health>();
+            insects = FindObjectsOfType<Health>();
             foreach (var insect in insects)
             {
                 if (Vector3.Distance(transform.position, insect.transform.position) <= auraRadius)
-                {
                     insect.ActivateDefenseBuff(defenseBonus, duration);
-                }
             }
             timer = 0f;
         }

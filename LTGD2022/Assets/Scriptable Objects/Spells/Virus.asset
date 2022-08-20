@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 50
   value: 2
-  duration: 2.5
+  duration: 4
   radius: 4
   displayName: Virus Cloud
   description: Slows fire rate of turrets in range.

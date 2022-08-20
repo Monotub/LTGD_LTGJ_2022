@@ -10,24 +10,27 @@ public class Health : MonoBehaviour
     [SerializeField] Image healthBar;
     [SerializeField] float maxHealth = 10;
     [SerializeField] float defense = 0;
+    [SerializeField] GameObject defenseVFX;
 
     public bool isDead { get; private set; }
     public float Defense => defense;
-    float currentHealth;
-    float defaultDefense;
-
     public static event Action<InsectStatsSO> InsectDied;
+
+    float currentHealth;
+    float origDef;
+
 
 
     private void Awake()
     {
-        defaultDefense = defense;
         currentHealth = maxHealth;
+        origDef = defense;
     }
 
     private void Update()
     {
         healthBar.fillAmount = currentHealth / maxHealth;
+        MonitorDefense();
     }
 
     public void ProcessHeal(float amt)
@@ -58,13 +61,23 @@ public class Health : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    public void ActivateDefenseBuff(float amt, float duration) => StartCoroutine(ProcessDefenseBuff(amt, duration));
+    public void ActivateDefenseBuff(float amt, float duration)
+    {
+        StartCoroutine(ProcessDefenseBuff(amt, duration));
+    }
 
     IEnumerator ProcessDefenseBuff(float amt, float dur)
     {
-        var origDef = defense;
         defense += amt;
         yield return new WaitForSeconds(dur);
         defense = origDef;
+    }
+
+    void MonitorDefense()
+    {
+        if(defense > origDef)
+            defenseVFX.SetActive(true);
+        else
+            defenseVFX.SetActive(false);
     }
 }
