@@ -5,11 +5,21 @@ using UnityEngine;
 public class EmpSpell : MonoBehaviour
 {
     [SerializeField] SpellSO data;
+    [SerializeField] AudioClip clip;
 
+    AudioSource sfx;
+
+
+    private void Awake()
+    {
+        sfx = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
         var turrets = FindObjectsOfType<Turret>();
+
+        sfx.PlayOneShot(clip);
 
         foreach (var turret in turrets)
         {

@@ -15,6 +15,6 @@ MonoBehaviour:
   cost: 75
   value: 10
   duration: 0
-  radius: 3
+  radius: 4
   displayName: Nature's Remedy
   description: Heals all insects in range

@@ -77,9 +77,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretTop: {fileID: 1397589630929523668}
-  attackRange: 10
+  attackRange: 12
   fireRate: 0.3
+  targetAquireRate: 1
   rotor: {fileID: 1397589630929686512}
+  projectilePrefab: {fileID: 3148329137781077016, guid: d4a8709a7a415eb4baac59e7a3f87add, type: 3}
+  projectileSpawnPoint: {fileID: 63308596222242804}
 --- !u!1001 &1397589630929652042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,37 +90,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1397589631360857041}
     m_Modifications:
-    - target: {fileID: 100002, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100114, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 100128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
       propertyPath: m_Name
       value: IONcannon_functional_base (drag the Rotor Body in play mode)
       objectReference: {fileID: 0}
-    - target: {fileID: 400026, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.0042546997
-      objectReference: {fileID: 0}
-    - target: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.0042546997
-      objectReference: {fileID: 0}
-    - target: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0042546997
       objectReference: {fileID: 0}
     - target: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}
       propertyPath: m_LocalPosition.x
@@ -161,6 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a6f329165746430c9ef778db977f273, type: 3}
+--- !u!4 &63308596222242804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1406766339843614398, guid: 8a6f329165746430c9ef778db977f273, type: 3}
+  m_PrefabInstance: {fileID: 1397589630929652042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1397589630929523274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400128, guid: 8a6f329165746430c9ef778db977f273, type: 3}

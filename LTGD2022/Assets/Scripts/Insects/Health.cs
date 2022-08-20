@@ -48,8 +48,10 @@ public class Health : MonoBehaviour
 
     void ProcessDeath()
     {
-        InsectDied?.Invoke(gameObject.GetComponent<Insect>().Stats);
-        Destroy(gameObject);
+        Insect insect = gameObject.GetComponent<Insect>();
+        insect.OnDeath();
+        InsectDied?.Invoke(insect.Stats);
+        Destroy(gameObject, 2f);
     }
 
     public void ActivateDefenseBuff(float amt, float duration) => StartCoroutine(ProcessDefenseBuff(amt, duration));

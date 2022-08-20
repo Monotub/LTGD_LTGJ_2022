@@ -15,6 +15,6 @@ MonoBehaviour:
   cost: 50
   value: 0
   duration: 2
-  radius: 3
+  radius: 4
   displayName: Camouflage
   description: Makes all insects in range go invisible for the duration.

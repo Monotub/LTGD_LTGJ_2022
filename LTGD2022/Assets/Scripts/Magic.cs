@@ -10,6 +10,7 @@ public class Magic : MonoBehaviour
     [SerializeField] GameObject[] spellPrefab;
     [SerializeField] SpellSO[] spellSOs = new SpellSO[6];
     [SerializeField] int manaRegenFactor = 5;
+    [SerializeField] bool magicCostsMana = true;
 
     public int spellIndex { get; private set; }
     public bool isSpellSelected { get; private set; }
@@ -106,8 +107,11 @@ public class Magic : MonoBehaviour
                     spellHighlights[spellIndex].GetComponentInParent<SpellSlot>().CanCast())
                 {
                     Instantiate(spellPrefab[spellIndex], hit.point, Quaternion.identity);
-                    currentMana -= spellSOs[spellIndex].cost;
-                    StartRecastTimer(spellIndex);
+                    if (magicCostsMana)
+                    {
+                        currentMana -= spellSOs[spellIndex].cost;
+                        StartRecastTimer(spellIndex);
+                    }
                 }
             }
         }

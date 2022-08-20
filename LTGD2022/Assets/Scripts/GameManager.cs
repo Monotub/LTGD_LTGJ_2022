@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     {
         partyDied++;
         lostEssence += data.EssenceCost;
+        Debug.Log("Total Deaths: " + partyDied);
     }
 
     void OnInsectCompleted(int essenceValue)
@@ -156,14 +157,16 @@ public class GameManager : MonoBehaviour
 
     public void ContinueToNextLevel()
     {
-        Debug.Log(SceneManager.sceneCountInBuildSettings);
-        if (currentSceneIndex + 1 <= SceneManager.sceneCountInBuildSettings)
+        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
             StartTransition?.Invoke();
             StartCoroutine(ContinueToNextLevelAfterDelay());
         }
         else
+        {
             Debug.LogWarning("Cannot load scene. No scene exists!");
+            FindObjectOfType<UIManager>().ShowGameoverScreen();
+        }
     }
 
     IEnumerator ContinueToNextLevelAfterDelay()

@@ -113,7 +113,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7662341288210369038, guid: aa3415f4eacccc042b4fa6b4692db8c1, type: 3}
   leftBarrel: {fileID: 7781994143129092852}
   rightBarrel: {fileID: 9090222568501111755}
-  damage: 2
+  damage: 3
   projectileSpeed: 15
 --- !u!1 &9212623546400082115
 GameObject:

@@ -15,9 +15,9 @@ TagManager:
   - Projectiles
   - Turrets
   - Insects
-  - 
-  - 
-  - 
+  - Post Processing
+  - Camera Bounds
+  - Camera Target
   - 
   - 
   - 

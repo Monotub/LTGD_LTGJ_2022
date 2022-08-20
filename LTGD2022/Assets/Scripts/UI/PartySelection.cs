@@ -22,12 +22,25 @@ public class PartySelection : MonoBehaviour
     [SerializeField] Sprite defaultImage;
     [SerializeField] Image[] partySlots = new Image[9];
 
+    [Header("Audio Setup")]
+    [SerializeField] AudioClip addClip;
+    [SerializeField] AudioClip acceptClip;
+    [SerializeField] AudioClip resetClip;
+    [SerializeField] AudioClip selectClip;
+
+
     InsectStatsSO[] activeParty = new InsectStatsSO[9];
     InsectStatsSO currentSelection;
+    AudioSource sfx;
 
     public static event Action<InsectStatsSO[]> PartySelected;
     public static event Action StartGame;
 
+
+    private void Awake()
+    {
+        sfx = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -42,6 +55,7 @@ public class PartySelection : MonoBehaviour
         abilityText.text = stats.AbilityDesc;
         descText.text = stats.Description;
         essenceCost.text = stats.EssenceCost.ToString();
+        sfx.PlayOneShot(selectClip);
     }
 
     public void AddInsect()
@@ -56,6 +70,7 @@ public class PartySelection : MonoBehaviour
                 GameData.EssenceAmount -= currentSelection.EssenceCost;
                 activeParty[i] = currentSelection;
                 partySlots[i].sprite = currentSelection.Portrait;
+                sfx.PlayOneShot(addClip);
                 return;
             }
         }
@@ -73,6 +88,7 @@ public class PartySelection : MonoBehaviour
 
     public void AcceptParty()
     {
+        sfx.PlayOneShot(acceptClip);
         int partySize = 0;
 
         if (activeParty[0] == null) return;
@@ -96,6 +112,7 @@ public class PartySelection : MonoBehaviour
             if(activeParty[i] != null)
                 GameData.EssenceAmount += activeParty[i].EssenceCost;
 
+            sfx.PlayOneShot(resetClip);
             activeParty[i] = null;
             partySlots[i].sprite = defaultImage;
         }

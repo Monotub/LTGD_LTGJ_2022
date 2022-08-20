@@ -12,6 +12,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject contextScreen;
     [SerializeField] Animator transitionAnim;
 
+    [Header("Tutorial Screen")]
+    [SerializeField] GameObject tutScreen;
+    [SerializeField] bool showTutorial = false;
+
+    [Header("GameOver Screen")]
+    [SerializeField] GameObject gameoverScreen;
+
     [Header("Level Complete Screen")]
     [SerializeField] TMP_Text levelHeaderText;
     [SerializeField] GameObject levelRestartBtn;
@@ -23,14 +30,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text essenceLost;
     [SerializeField] TMP_Text essenceTotal;
 
-    Magic magic;
+    [Header("Audio Setup")]
+    [SerializeField] AudioClip addClip;
+    [SerializeField] AudioClip pauseClip;
+    [SerializeField] AudioClip unpauseClip;
 
+
+    public AudioSource sfx { get; private set; }    
+    Magic magic;
+    
     bool optionsOpen = false;
 
 
     private void Awake()
     {
         magic = FindObjectOfType<Magic>();
+        sfx = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -47,6 +62,12 @@ public class UIManager : MonoBehaviour
         GameManager.StartTransition -= OnStartTransition;
     }
 
+    private void Start()
+    {
+        if (showTutorial)
+            tutScreen.SetActive(true);
+    }
+
     private void Update()
     {
         MonitorSpells();
@@ -56,6 +77,8 @@ public class UIManager : MonoBehaviour
     {
         transitionAnim.SetTrigger("End");
     }
+
+    public void CloseTutorial() => tutScreen.SetActive(false);
 
     void TogglePauseScreen(bool paused)
     {
@@ -109,5 +132,11 @@ public class UIManager : MonoBehaviour
             contextScreen.SetActive(true);
         else
             contextScreen.SetActive(false);
+    }
+
+    public void ShowGameoverScreen()
+    {
+        Time.timeScale = 1;
+        gameoverScreen.SetActive(true);
     }
 }

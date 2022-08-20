@@ -13,13 +13,13 @@ public class Projectile : MonoBehaviour
     float moveTime = 0;
 
 
-    private void Start()
+    protected void Start()
     {
         startPos = transform.position;
         transform.rotation = Quaternion.LookRotation(target - startPos);
     }
 
-    private void Update()
+    protected void Update()
     {
         moveTime += Time.deltaTime * speed;
         transform.position = Vector3.Lerp(startPos, target, moveTime);
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         speed = _speed;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.GetComponent<Turret>() != null) return;
 

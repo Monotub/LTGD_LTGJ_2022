@@ -15,6 +15,6 @@ MonoBehaviour:
   cost: 100
   value: 0
   duration: 2.5
-  radius: 3
-  displayName: EMP Discharge
+  radius: 4
+  displayName: Nature's Taser
   description: Disables turrets in range for duration of the spell.

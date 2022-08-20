@@ -90,7 +90,7 @@ MonoBehaviour:
   auraRadius: 5
   stats: {fileID: 11400000, guid: 8a5083abe78a2de498002f530cc84169, type: 2}
   healParticles: {fileID: 7552545039920465550}
-  healDelay: 2.5
+  healDelay: 2
   healAmount: 2
 --- !u!114 &8822396371837056731
 MonoBehaviour:
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5326336811982575371}
-  maxHealth: 40
+  maxHealth: 35
   defense: 0
 --- !u!1 &3104926176527719847
 GameObject:

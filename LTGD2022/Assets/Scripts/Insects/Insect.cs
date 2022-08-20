@@ -27,7 +27,7 @@ public class Insect : MonoBehaviour
     protected void Start()
     {
         waypoints = FindObjectOfType<Path>().GetPath();
-        anim = GetComponentInChildren<Animator>();
+        this.anim = GetComponentInChildren<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(NavAlongPath());
         anim.SetTrigger("Running");
@@ -37,6 +37,7 @@ public class Insect : MonoBehaviour
         essenceValue = stats.EssenceCost;
     }
 
+
     IEnumerator NavAlongPath()
     {
         var wait = new WaitForEndOfFrame();
@@ -44,7 +45,8 @@ public class Insect : MonoBehaviour
         {
             while(Vector3.Distance(transform.position, waypoints[i].position) > 0.1f)
             {
-                navAgent.SetDestination(waypoints[i].position);
+                if(navAgent)
+                    navAgent.SetDestination(waypoints[i].position);
                 yield return wait;
             }
         }
@@ -59,6 +61,15 @@ public class Insect : MonoBehaviour
                 GameManager.Instance.AddBonusEssence(ladybug.bonusEssence);
             Destroy(gameObject);
         }
+    }
+
+    public void OnDeath()
+    {
+        GetComponent<Collider>().enabled = false;
+        targetable = false;
+        navAgent.enabled = false;
+        anim.SetTrigger("Die");
+        
     }
 
     public void ActivateHaste(float amt, float dur)

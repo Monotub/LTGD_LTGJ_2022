@@ -15,6 +15,6 @@ MonoBehaviour:
   cost: 50
   value: 2
   duration: 3
-  radius: 3
+  radius: 4
   displayName: Strider's Boon
   description: Increases run speed of all insects in range for a few seconds

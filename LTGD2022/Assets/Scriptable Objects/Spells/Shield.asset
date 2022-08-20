@@ -15,6 +15,6 @@ MonoBehaviour:
   cost: 50
   value: 4
   duration: 3
-  radius: 3
+  radius: 4
   displayName: Shield Stance
   description: Grants defense bonus to all insects in range
